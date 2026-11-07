@@ -22,7 +22,7 @@ class FakeMessages:
         self._payload = payload
         self.last_kwargs: dict | None = None
 
-    def create(self, **kwargs):
+    def create(self, **kwargs: object) -> SimpleNamespace:
         self.last_kwargs = kwargs
         return SimpleNamespace(content=[FakeToolUseBlock(self._tool_name, self._payload)])
 
@@ -32,7 +32,7 @@ class FakeClient:
         self.messages = FakeMessages(tool_name, payload)
 
 
-def test_generate_briefing_parses_structured_output():
+def test_generate_briefing_parses_structured_output() -> None:
     payload = {
         "company_summary": "SaaS企業。従業員規模は非公開。",
         "talking_points": ["導入目的", "既存ツールとの棲み分け"],
@@ -51,7 +51,7 @@ def test_generate_briefing_parses_structured_output():
     assert "Acme Inc." in client.messages.last_kwargs["messages"][0]["content"]
 
 
-def test_extract_followup_parses_structured_output():
+def test_extract_followup_parses_structured_output() -> None:
     payload = {
         "decisions": ["来月の勉強会で正式導入を検討する"],
         "next_actions": ["見積もりを来週送付する"],
@@ -67,7 +67,7 @@ def test_extract_followup_parses_structured_output():
     assert client.messages.last_kwargs["tool_choice"] == {"type": "tool", "name": "submit_followup_plan"}
 
 
-def test_briefing_tool_schema_has_required_fields():
+def test_briefing_tool_schema_has_required_fields() -> None:
     from sales_prep_followup import _model_to_tool
 
     tool = _model_to_tool(Briefing, "submit_briefing", "desc")

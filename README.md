@@ -57,6 +57,10 @@ CLI は、`brief` なら想定論点・質問リスト・懸念点を、`followu
 
 商談前・商談後を別スクリプトにせず、1 つのファイルに `Briefing` / `FollowupPlan` という 2 つの Pydantic モデルとして定義し、共通のヘルパー(`_model_to_tool` / `_call_structured`)で tool use の JSON スキーマに変換している。理由や検証過程は記事本文を参照。
 
+## 記事
+
+https://zenn.dev/liatris/articles/20260910-sales-prep-followup-ai
+
 ## ライセンス
 
 MIT

@@ -74,7 +74,10 @@ def generate_briefing(client: Any, *, company_name: str, url: str, purpose: str 
 
 def extract_followup(client: Any, *, meeting_notes: str) -> FollowupPlan:
     tool = _model_to_tool(FollowupPlan, "submit_followup_plan", "商談後のフォロー計画を提出する")
-    user = f"次の商談メモから決定事項とネクストアクションを抽出し、フォローメールの下書きを作って。\n\n---\n{meeting_notes}\n---"
+    user = (
+        "次の商談メモから決定事項とネクストアクションを抽出し、フォローメールの下書きを作って。"
+        f"\n\n---\n{meeting_notes}\n---"
+    )
     data = _call_structured(
         client,
         system="あなたはB2B営業のフォローアップを支援するアシスタントです。メモにない情報は書き足しません。",
